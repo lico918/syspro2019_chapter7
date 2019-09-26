@@ -16,13 +16,25 @@
             <ul id="messages"></ul>
             <input id="name" placeholder="名前">
             <!-- TODO1 ここにメッセージ入力フォームを追加 -->
-            <!-- TODO1 ここに送信ボタンを追加 -->
+            <input id="message" placeholder="メッセージ">
+	    <!-- TODO1 ここに送信ボタンを追加 -->
+	    <button id="send">投稿</button>
+
             
         </div>
         <script>
             // TODO0 ここに設定情報を貼り付ける  
-            
-            
+		var firebaseConfig = {
+			apiKey: "AIzaSyChEQ-D-cmJNHAPSMGgZYoKXUuCMCkFFl8",
+			authDomain: "syspro-kadai7.firebaseapp.com",
+			databaseURL: "http://syspro-kadai7.firebaseio.com",
+			projectId: "syspro-kadai7",
+			storageBucket: "syspro-kadai7.appspot.com",
+			messagingSenderId: "162331772947",
+			appId: "1:162331772947:web:9bdc59f6b04f8dfea157e6"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
             
             // データベースの参照を準備
             var messagesRef = firebase.firestore().collection('messages')
