@@ -14,6 +14,8 @@
         
         <div>
             <ul id="messages"></ul>
+	    <!-- 追加課題　-->
+	    <input type="datetime-local" id="datetime"> 
             <input id="name" placeholder="名前">
             <!-- TODO1 ここにメッセージ入力フォームを追加 -->
             <input id="message" placeholder="メッセージ">
@@ -24,15 +26,9 @@
         </div>
         <script>
             // TODO0 ここに設定情報を貼り付ける  
-		var firebaseConfig = {
-			apiKey: "AIzaSyChEQ-D-cmJNHAPSMGgZYoKXUuCMCkFFl8",
-			authDomain: "syspro-kadai7.firebaseapp.com",
-			databaseURL: "http://syspro-kadai7.firebaseio.com",
-			projectId: "syspro-kadai7",
-			storageBucket: "syspro-kadai7.appspot.com",
-			messagingSenderId: "162331772947",
-			appId: "1:162331772947:web:9bdc59f6b04f8dfea157e6"
-		};
+		
+
+
 		// Initialize Firebase
 		firebase.initializeApp(firebaseConfig);
             
@@ -40,8 +36,26 @@
             var messagesRef = firebase.firestore().collection('messages')
         
             // TODO4 メッセージを表示
+		messagesRef.onSnapshot(function(snapshot) {
+			snapshot.docChanges.forEach(function(change) {
+				if (change.type === 'added') {
+					$('<div id="box" class="line__left">').appendTo('#messages');
+					$('<div>').text(change.doc.data().datetime).appendTo('#box');
+					$('<div>').text(change.doc.data().name).appendTo('#box');
+					$('<div class="text">').text(change.doc.data().body).appendTo('#box');
+				}
+			});
+		});
             
             // TODO2 送信ボタンが押された時の処理
+		$('#send').click(function() {
+			$('<p>追加しました</p>').appendTo('#messages');
+			messagesRef.add({
+				datetime: $('#datetime').val()
+				name: $('#name').val()
+				body: $('#message').val()
+			)];
+		)];
             
         </script>
     </body>
